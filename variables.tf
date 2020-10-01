@@ -10,7 +10,7 @@ variable ibmcloud_api_key {
 variable resource_group {
     description = "Name of resource group to create VPC."
     type        = string
-    default     = "bryantech"
+    default     = "cylera-default-rg"
 }
 
 variable ibm_region {
@@ -22,13 +22,7 @@ variable ibm_region {
 variable tags {
     description = "Enter any tags that you want to associate with VPC and associated resources."
     type        = list(string)
-    default     = [
-      "aa-app-id:7129011",
-      "aa-application:travel",
-      "aa-costcenter:0900-1992",
-      "directlink:true",
-      "env:test"
-    ]
+    default     = ["env:test"]
 }
 
 
@@ -61,9 +55,9 @@ variable address_prefixes {
         zone = number
     }))
     default = {
-        prefix-1 = { name="address-prefix-1", cidr="172.16.10.128/27", zone="1"},
-        prefix-2 = { name="address-prefix-2", cidr="172.16.20.128/27", zone="2"},
-        prefix-3 = { name="address-prefix-3", cidr="172.16.30.128/27", zone="3"}
+        prefix-1 = { name="address-prefix-1", cidr="10.240.0.0/18", zone="1"},
+        prefix-2 = { name="address-prefix-2", cidr="10.240.64.0/18", zone="2"},
+        prefix-3 = { name="address-prefix-3", cidr="10.240.128.0/18", zone="3"}
     }
 }
 
@@ -75,10 +69,10 @@ variable subnets {
         pubgw = bool
     }))
     default = {
-        subnet-1a = {name="subnet-bastion", cidr="172.16.10.128/29", zone="1", pubgw="true"},
-        subnet-1b = {name="subnet-1", cidr="172.16.10.144/28", zone="1", pubgw="false"},
-        subnet-2 = {name="subnet-2", cidr="172.16.20.128/27", zone="2", pubgw="false"},
-        subnet-3 = {name="subnet-3", cidr="172.16.30.128/27", zone="3", pubgw="false"}
+        subnet-1a = {name="subnet-bastion", cidr="10.240.1.0/24", zone="1", pubgw="true"},
+        subnet-1b = {name="subnet-1", cidr="10.240.0.0/24", zone="1", pubgw="false"},
+        subnet-2 = {name="subnet-2", cidr="10.240.64.0/24", zone="2", pubgw="false"},
+        subnet-3 = {name="subnet-3", cidr="10.240.128.0/24", zone="3", pubgw="false"}
     }
 }
 
@@ -90,7 +84,6 @@ variable public_gateways {
     }))
     default = {
         publicgw-1 = {name="publicgw-1", zone="1"},
-        publicgw-2 = {name="publicgw-2", zone="2"}
     }
 }
 
@@ -113,13 +106,6 @@ variable allow_ping {
   type        = bool
   default     = true
 }
-
-variable enable_public_gateway {
-  description = "Enable public gateways, true or false"
-  type        = bool
-  default     = false
-}
-
 
 variable acl_rules {
   # description = "Access control list rule set"
