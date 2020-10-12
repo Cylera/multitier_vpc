@@ -64,12 +64,6 @@ resource ibm_is_public_gateway public_gateway {
 }
 
 
-#locals {
-#  public_gateway_ids = [
-#    for i in ibm_is_public_gateway.public_gateway: i.id 
-#  ]
-#}
-
 
 ##############################################################################
 # Update default security group
